@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Test</title>
+    
+    <style>
+        body{
+            background-color: #000;
+        }
+        
+        section{
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 200px;
+            background-color: #222222;
+            padding-bottom: 200px;
+        }
+        
+        h1 {
+           font-family: Helvetica, sans-serif;
+            font-size: 72px;
+            color: beige;
+            text-align: center;
+        }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    
+    <script>
+            var socket = io.connect('//localhost:3000');
+            //listen for data on websocket called my socket
+            socket.on('mysocket', function(data) {
+                console.log(data);
+                //Jquery has getters and setters
+                $('#toggleText').text(data);
+                if(data == "on"){
+                    $('#toggleBG').css("background-color", "beige");
+                    $('#toggleText').css("color", "#222222");
+                } else{
+                    $('#toggleBG').css("background-color", "#222222");
+                    $('#toggleText').css("color", "beige");
+                }
+                
+            });
+            socket.on('error', function() {
+                console.error(arguments)
+            });
+    </script>
+</head>
+<body>
+    <section id="toggleBG">
+        <h1 id="toggleText">OFF</h1>
+    </section>
+
+</body>
+</html>
